@@ -12,11 +12,10 @@ class SlicePuzzle:
         self.empty_positions = self.find_empty(board)
 
     def find_empty(self, board):
-        """빈칸(0)의 위치 찾기"""
         return [(i, j) for i in range(2) for j in range(5) if board[i][j] == 0]
 
+    #맨해튼 거리 기반 휴리스틱 계산
     def heuristic(self, board):
-        """맨해튼 거리 기반 휴리스틱 계산"""
         distance = 0
         for i in range(2):
             for j in range(5):
@@ -27,8 +26,8 @@ class SlicePuzzle:
                 distance += abs(goal_x - i) + abs(goal_y - j)
         return distance
 
+    #이동 후 상태 반환
     def move(self, board, empty_positions, direction):
-        """빈칸 이동 후 새로운 상태 반환"""
         new_boards = []
         for empty_pos in empty_positions:
             i, j = empty_pos
@@ -53,7 +52,7 @@ class SlicePuzzle:
         priority_queue = []
         visited = set()
 
-        # 초기 상태 삽입
+        # 초기 상태
         heapq.heappush(priority_queue, (self.heuristic(self.start), 0, self.start, self.empty_positions, []))
         visited.add(tuple(map(tuple, self.start)))
 
@@ -75,7 +74,7 @@ class SlicePuzzle:
 
         return None  # 해결 불가능한 경우
 
-# 초기 숫자판
+# 초기 숫자판 (0은 빈칸)
 initial_board = [
     [3, 1, 4, 2, 5],
     [6, 0, 7, 8, 0]
