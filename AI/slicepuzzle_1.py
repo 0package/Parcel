@@ -66,7 +66,7 @@ class PuzzleSolver:
 
         return None  # 해결 불가능한 경우
 
-# 초기 숫자판 (랜덤 섞기 대신 예제 입력 사용)
+# 초기 숫자판
 initial_board = [
     [9, 2, 8, 4, 7],
     [1, 3, 5, 6, 0]  # 0은 빈칸
