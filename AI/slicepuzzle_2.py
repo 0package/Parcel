@@ -6,7 +6,7 @@ GOAL_STATE = [[1, 2, 3, 4, 5], [6, 7, 8, 0, 0]]
 # 이동 방향 (UP, DOWN, LEFT, RIGHT)
 DIRECTIONS = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}
 
-class PuzzleSolver:
+class SlicePuzzle:
     def __init__(self, board):
         self.start = board
         self.empty_positions = self.find_empty(board)
@@ -78,10 +78,10 @@ class PuzzleSolver:
 # 초기 숫자판
 initial_board = [
     [3, 1, 4, 2, 5],
-    [6, 0, 7, 8, 0]  # 빈칸 2개
+    [6, 0, 7, 8, 0]
 ]
 
-solver = PuzzleSolver(initial_board)
+solver = SlicePuzzle(initial_board)
 solution = solver.solve()
 
 if solution:
