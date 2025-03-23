@@ -6,20 +6,19 @@ GOAL_STATE = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 0]]
 # 이동 방향 (UP, DOWN, LEFT, RIGHT)
 DIRECTIONS = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}
 
-class PuzzleSolver:
+class SlicePuzzle:
     def __init__(self, board):
         self.start = board
         self.empty_pos = self.find_empty(board)
 
     def find_empty(self, board):
-        """빈칸(0)의 위치 찾기"""
         for i in range(2):
             for j in range(5):
                 if board[i][j] == 0:
                     return (i, j)
 
+    #맨해튼 거리 기반 휴리스틱 계산
     def heuristic(self, board):
-        """맨해튼 거리 기반 휴리스틱 계산"""
         distance = 0
         for i in range(2):
             for j in range(5):
@@ -41,12 +40,12 @@ class PuzzleSolver:
             return new_board, (new_i, new_j)
         return None, None
 
+    # A* 알고리즘 이용
     def solve(self):
-        """A* 알고리즘을 이용한 퍼즐 해결"""
         priority_queue = []
         visited = set()
 
-        # 초기 상태 삽입
+        # 초기 상태
         heapq.heappush(priority_queue, (self.heuristic(self.start), 0, self.start, self.empty_pos, []))
         visited.add(tuple(map(tuple, self.start)))
 
@@ -66,13 +65,13 @@ class PuzzleSolver:
 
         return None  # 해결 불가능한 경우
 
-# 초기 숫자판
+# 초기 숫자판 (0은 빈칸)
 initial_board = [
     [9, 2, 8, 4, 7],
-    [1, 3, 5, 6, 0]  # 0은 빈칸
+    [1, 3, 5, 6, 0]
 ]
 
-solver = PuzzleSolver(initial_board)
+solver = SlicePuzzle(initial_board)
 solution = solver.solve()
 
 if solution:
